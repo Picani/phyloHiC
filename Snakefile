@@ -10,7 +10,7 @@ from itertools import combinations
 from os.path import dirname
 from string import Template
 
-shell.prefix("source /beegfs/home/pulicani/miniconda3beegfs/bin/activate py36;")
+shell.prefix('{};'.format(config['condacmd']))
 
 THRESHOLDS = ['00', '10', '25', '50', '75', '90']
 ADJACENCIES = ['all', 'none', 'and', 'xor']
