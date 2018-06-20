@@ -9,10 +9,11 @@ Requirements
 
 * Python 3 (at least 3.6 for the [f-string][1] notation)
 * [PyToolz][2]
-* [tqdm][3] (optional, used to display progress bar)
+* [numpy][3]
+* [tqdm][4] (optional, used to display progress bar)
 
 
----
 [1]: https://www.python.org/dev/peps/pep-0498/
 [2]: https://toolz.readthedocs.io/en/latest/
-[3]: https://pypi.org/project/tqdm/
+[3]: http://www.numpy.org/
+[4]: https://pypi.org/project/tqdm/
