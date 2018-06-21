@@ -4,7 +4,7 @@
 
 # Author: Sylvain PULICANI <pulicani@lirmm.fr>
 # Created on: June 19, 2018
-# Last modified on: June 19, 2018
+# Last modified on: June 21, 2018
 
 from itertools import combinations
 from os.path import dirname
@@ -35,28 +35,19 @@ rule all:
                rep=n)
 
 
-rule cat_replicates:
-    input:
-        expand('{{rootdir}}/{{res}}/{name}/threshold_{{th}}_adj_{{adj}}/trees_{{type}}_{{rep}}/replicates_{n}.phylip',
-               n=range(n), name=name)
-    output:
-        '{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{type}_{rep}/all_replicates.phylip'
-    shell:
-        'cat {input} > {output}'
-
-
 rule make_bootstrap:
     input:
         [Template('{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/${d1}_${d2}_values.tsv.gz').substitute(d1=d1, d2=d2)
          for d1, d2 in combinations(config['datasets'], 2)]
     output:
-        expand('{{rootdir}}/{{res}}/{{name}}/threshold_{{th}}_adj_{{adj}}/trees_{{method}}_{{rep}}/replicates_{n}.phylip',
-               n=range(n))
+        '{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}_{rep}/all_replicates.phylip'
     params:
         union='-u' if config['method'] == 'union' else '',
         outdir=lambda wildcards, output: dirname(output[0])
     shell:
-        '{bindir}/bootstrap.py {params.union} {orthologs} {params.outdir} {n} {input}'
+        # The rmdir is because snakmake creates the directory before
+        # to call bootstrap.py, which expects the dir to NOT exist.
+        'rmdir {params.outdir} && {bindir}/bootstrap.py -o {params.union} {orthologs} {params.outdir} {n} {input}'
 
 
 rule get_stats:
