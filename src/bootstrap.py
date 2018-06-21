@@ -73,6 +73,9 @@ def main():
     parser.add_argument('n', type=int, help='the number of replicates')
     parser.add_argument('values', nargs='+',
                         help='the values files, in (Gzipped) TSV')
+    parser.add_argument('-o', '--one-file', action='store_true',
+                        help='put all matrices in one file called\
+                        all_replicates.phylip')
     parser.add_argument('-r', '--reference', action='store_true',
                         help=('compute the actual distances matrix and write'
                               ' it in the outdir as ref.phylip'))
@@ -157,20 +160,36 @@ def main():
     if args.progress:
         print('Computing replicates...')
         pbar = tqdm(total=args.n)
+
+    if args.one_file:
+        f = open(args.outdir + '/all_replicates.phylip', 'w')
+
     for i in range(args.n):
         if args.verbose:
             print(f'Replicate {i}')
         current_choices = random.choices(values, k=len(values))
         distances = distances_scaledl2(species, current_choices)
+        matrix = phylip(species, distances)
 
-        filename = f'{args.outdir}/replicate_{i}.phylip'
-        with open(filename, 'w') as f:
-            f.write(phylip(species, distances))
+        if args.one_file:
+            f.write(matrix)
             f.write('\n')
-        if args.verbose:
-            print(f'  Written {filename}')
-        elif args.progress:
+        else:
+            filename = f'{args.outdir}/replicate_{i}.phylip'
+            with open(filename, 'w') as f:
+                f.write(matrix)
+                f.write('\n')
+            if args.verbose:
+                print(f'  Written {filename}')
+
+        if args.progress:
             pbar.update(1)
+
+    if args.one_file:
+        f.close()
+    if args.progress:
+        print()  # To have a pretty line in the console
+
 
 if __name__ == '__main__':
     main()
