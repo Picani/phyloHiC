@@ -47,7 +47,7 @@ rule make_bootstrap:
     shell:
         # The rmdir is because snakmake creates the directory before
         # to call bootstrap.py, which expects the dir to NOT exist.
-        'rmdir {params.outdir} && {bindir}/bootstrap.py -o {params.union} {orthologs} {params.outdir} {n} {input}'
+        'rmdir {params.outdir} && {bindir}/bootstrap.py -ro {params.union} {orthologs} {params.outdir} {n} {input}'
 
 
 rule get_stats:
