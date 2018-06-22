@@ -37,31 +37,9 @@ from os.path import splitext
 from collections import defaultdict
 from distutils.util import strtobool
 
-
-def read_orthos(name):
-    """
-    Read the orthologs from a TSV file and return a set of the orthologs
-    names (from all species) and a mapping of the ortholog names to their
-    orthology group.
-
-    The TSV file is expected to have an header row with the species names,
-    one orthology group per row, and all species having one and only one
-    ortholog per group.
-    """
-    lines = []
-    with open(name, 'r') as f:
-        lines = [l for l in f.read().split('\n') if l]
-    orthos = set()
-    groups = {}
-    for i, line in enumerate(lines[1:]):
-        fields = line.split('\t')
-        for gene in fields:
-            orthos.add(gene)
-            groups[gene] = i
-    return orthos, groups
+from iolib import read_orthos
 
 
-# def select_lines(orthos, groups, f):
 def select_lines(orthos, f):
     """
     Select the records from the pairs file *f* based on the presence of
