@@ -80,6 +80,11 @@ def select_lines(orthos, f):
 
 
 def adjaceny_status(left, right):
+    """
+    Convert two booleans representing whether the genes are adjacent
+    in a string which explicit the relation (either `both` if adjacent
+    in both species, `left` if adjacent in left species only, *etc.*)
+    """
     if left and right:
         return 'both'
     elif left and not right:
@@ -99,6 +104,20 @@ def threshold(limit, val):
         return val
 
 def get_records(records, adj_status, th):
+    """
+    Get all records from *records* that can be written, filter them based
+    on their adjacency, apply the threshold and return a list of tuple
+    ready to be written (*i.e.* passed to a csv.writer)
+
+    *records* in a dict of dict of tuple:
+    * the first level key is a string of the orthology groups joined
+      by a `_`,
+    * the second level is either `left` or `right`,
+    * the tuple is a record as read by csv.reader from a pairs file.
+
+    The result is a list of tuple corresponding to a row of the file
+    described in the above preamble.
+    """
     res = []
     ks = list(records.keys())
 
