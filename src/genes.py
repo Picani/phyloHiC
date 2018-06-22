@@ -65,7 +65,7 @@ def compute_adjacent(genes):
         if genes[i]['chrom'] == g['chrom']:
             d['left'] = genes[i]['name']
         if genes[i+1]['chrom'] == g['chrom']:
-            d['right'] = genes[i+1]['name']
+            d['right'] = genes[i+2]['name']
 
         res[g['name']] = d
 
