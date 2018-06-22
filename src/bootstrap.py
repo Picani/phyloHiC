@@ -24,7 +24,7 @@ def distances_scaledl2(species, values):
     Compute the distances using the L2-norm scaled by the size with the
     *values* for all pairs of *species*.
 
-    .. note:: This function makes no assumption of the way we want to
+    .. note:: This function makes no assumption on the way we want to
               compute the bootstrap (union or intersection). The caller
               is responsible for that.
     """
