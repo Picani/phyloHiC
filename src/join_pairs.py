@@ -21,7 +21,7 @@ This table is written as TSV with no header row, in a Gzipped file.
 
 |
 :created: May 2018
-:last modified: May 2018
+:last modified: July 2018
 
 .. codeauthor::
    Sylvain PULICANI <pulicani@lirmm.fr>
@@ -144,7 +144,7 @@ def get_records(records, adj_status, th):
 
 
 
-def main():
+def cli_parser():
     desc = ('Reads two pairs files (the left one and the right one) and join '
             'them based on a list of orthologs.')
     parser = argparse.ArgumentParser(description=desc)
@@ -163,6 +163,11 @@ def main():
                         help='the adjacencies status to keep')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='be verbose')
+    return parser
+
+
+def main():
+    parser = cli_parser()
     args = parser.parse_args()
 
     if args.verbose:

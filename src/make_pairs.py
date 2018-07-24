@@ -23,7 +23,7 @@ the extension .gz). The file has no header and the following columns:
 
 |
 :created: May 2018
-:last modified: June 2018
+:last modified: July 2018
 
 .. codeauthor::
    Sylvain PULICANI <pulicani@lirmm.fr>
@@ -43,9 +43,9 @@ import hic
 from genes import read_bed, compute_adjacent
 
 
-def main():
+def cli_parser():
     parser = argparse.ArgumentParser(
-        description='Make the pairs of genes for a species.')
+    description='Make the pairs of genes for a species.')
     parser.add_argument('genes', help='the genes, in BED')
     parser.add_argument('hic',
                         help='the directory with the Hi-C sparses matrices')
@@ -60,6 +60,11 @@ def main():
                         help='Scramble in-memory the Hi-C matrices before use')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='be verbose')
+    return parser
+
+
+def main():
+    parser = cli_parser()
     args = parser.parse_args()
 
     if args.verbose:

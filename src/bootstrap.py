@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 
 
+"""
+bootstrap.py
+============
+
+TODO: Write this...
+
+"""
+
+
 import argparse
 import random
 import sys
@@ -62,7 +71,7 @@ def distances_scaledl2(species, values):
     return distances
 
 
-def main():
+def cli_parser():
     desc = ('Perform the bootstrap (and optionally recompute the actual '
             'distances matrix) from the output values of the "compare" '
             'command of phyloHiC. WARNING: for now, it silently ignores '
@@ -96,6 +105,11 @@ def main():
                         help='print a progress bar; need tqdm to be installed')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='be verbose')
+    return parser
+
+
+def main():
+    parser = cli_parser()
     args = parser.parse_args()
 
     global BUGGED
