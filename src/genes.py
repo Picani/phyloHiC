@@ -9,9 +9,19 @@ genes
 This module contains functions that parses BED files containing genes
 and compute the adjacency of genes.
 
+A ``gene`` is a ``dict`` with the following keys:
+
+* ``chrom``, a ``str``
+* ``start``, an ``int``
+* ``end``, an ``int``
+* ``name``, a ``str``
+* ``strand``, a ``str``, but can only be + or -
+
+In this file, the ``genes`` argument refers to a list of such dicts.
+
 |
 :created: May 2018
-:last modified: June 2018
+:last modified: July 2018
 
 .. codeauthor::
    Sylvain PULICANI <pulicani@lirmm.fr>
@@ -45,6 +55,26 @@ def read_bed(name):
     res.sort(key=lambda g: g['start'])
     res.sort(key=lambda g: g['chrom'])
     return res
+
+
+def make_bed(genes):
+    """
+    Convert the *genes* to BED. Return the resulting string.
+    .. Note:: The `score` column is set to 0.
+    """
+    rows = [f'{g["chrom"]}\t{g["start"]}\t{g["end"]}\t{g["name"]}\t0\t{g["strand"]}'
+            for g in genes]
+    return '\n'.join(rows)
+
+
+def write_bed(genes, name):
+    """
+    Write the *genes* to the BED file *name*.
+    """
+    with open(name, 'w') as f:
+        f.write(make_bed(genes))
+        f.write('\n')
+
 
 def compute_adjacent(genes):
     """
