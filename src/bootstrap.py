@@ -23,52 +23,10 @@ from collections import defaultdict
 from toolz import merge_with
 from toolz.curried import merge
 
+from distances import scaled_ratio_l2
 from iolib import read_orthos, read_values, phylip
 
 BUGGED = False
-
-
-def distances_scaledl2(species, values):
-    """
-    Compute the distances using the L2-norm scaled by the size with the
-    *values* for all pairs of *species*.
-
-    .. note:: This function makes no assumption on the way we want to
-              compute the bootstrap (union or intersection). The caller
-              is responsible for that.
-    """
-    distances = defaultdict(dict)
-    sizes = defaultdict(dict)
-    species_pairs = list(combinations(species, 2))
-    for sp1, sp2 in species_pairs:
-        distances[sp1][sp2] = 0.0
-        sizes[sp1][sp2] = 0.0
-
-    for v in values:
-        for sp1, sp2 in species_pairs:
-            if sp1 not in v or sp2 not in v:
-                continue
-            if isnan(v[sp1]) or isnan(v[sp2]):
-                print(v)
-                sys.exit(7)
-            ma = max(v[sp1], v[sp2])
-            mi = min(v[sp1], v[sp2])
-            if ma == 0.0 and BUGGED:
-                # To mimic the results of phyloHiC compare from commit
-                # f0415951e58318460c590aa9a818113f32ad37f0
-                distances[sp1][sp2] += 1.0
-            elif ma == 0.0:
-                distances[sp1][sp2] += 0.0  # useless but explicit
-            else:
-                distances[sp1][sp2] += (1.0 - (mi/ma))**2
-            sizes[sp1][sp2] += 1.0
-
-    for sp1, sp2 in species_pairs:
-        if sizes[sp1][sp2] == 0.0:
-            distances[sp1][sp2] = 1.0
-        else:
-            distances[sp1][sp2] = sqrt(distances[sp1][sp2]) / sqrt(sizes[sp1][sp2])
-    return distances
 
 
 def cli_parser():
@@ -182,7 +140,7 @@ def main():
         if args.verbose:
             print(f'Replicate {i}')
         current_choices = random.choices(values, k=len(values))
-        distances = distances_scaledl2(species, current_choices)
+        distances = scaled_ratio_l2(current_choices)
         matrix = phylip(species, distances)
 
         if args.one_file:
