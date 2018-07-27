@@ -81,13 +81,16 @@ def threshold(limit, val):
     else:
         return val
 
-def get_records(records, adj_status, th):
+def get_records(records, adj_status, th, exclude=False):
     """
     Get all records from *records* that can be written, filter them based
     on their adjacency, apply the threshold and return a list of tuple
     ready to be written (*i.e.* passed to a csv.writer)
 
-    *records* in a dict of dict of tuple:
+    If *exclude* is True, then the records with **both** values lesser than
+    or equal to the threshold are excluded.
+
+    *records* is a dict of dict of tuple:
     * the first level key is a string of the orthology groups joined
       by a `_`,
     * the second level is either `left` or `right`,
@@ -136,6 +139,8 @@ def get_records(records, adj_status, th):
             if isnan(val2):
                 print('dans val2')
                 continue
+            if exclude and val1 == th and val2 == th:
+                continue
             r = (r1[0], r1[1], r2[0], r2[1], str(val1), str(val2))
 
         res.append(r)
@@ -158,6 +163,9 @@ def cli_parser():
                         help='the output file, optionally Gzipped')
     parser.add_argument('-t', '--threshold', type=float,
                         help='the threshold to apply')
+    parser.add_argument('-x', '--exclude', action='store_true',
+                        help=('exclude the pairs with both values lesser '
+                              'than or equal to the threshold'))
     parser.add_argument('-a', '--adjacencies', default='all',
                         choices=['all', 'none', 'and', 'or', 'xor'],
                         help='the adjacencies status to keep')
@@ -222,7 +230,8 @@ def main():
         i += 1
         if i >= 10000:
             i = 0
-            buf.extend(get_records(records, args.adjacencies, args.threshold))
+            buf.extend(get_records(records, args.adjacencies,
+                                   args.threshold, args.exclude))
 
         if len(buf) >= 50000:
             writer.writerows(buf)
