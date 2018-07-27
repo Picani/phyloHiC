@@ -30,7 +30,7 @@ class NaNinValuesError(Exception):
         super().__init__(f'NaN in the values:\n{values}')
 
 
-def ratio_scaledl2(values):
+def scaled_ratio_l2(values):
     """
     Compute the distances using the L2-norm of the ratios scaled by
     the number of that ratios. The ratios are made using the *values*.
