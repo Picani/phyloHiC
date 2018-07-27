@@ -88,7 +88,8 @@ rule join_pairs:
         # print(s)
         # t = get_threshold(wildcards.th, input.s)
         t = get_threshold(wildcards.th, s)
-        shell("{bindir}/join_pairs.py {t} -a {wildcards.adj} {orthologs} {input.d1} {input.d2} {output}")
+        x = '-x' if config.get('exclude', False) else ''
+        shell("{bindir}/join_pairs.py {t} {x} -a {wildcards.adj} {orthologs} {input.d1} {input.d2} {output}")
 
 
 

@@ -27,6 +27,9 @@ orthologs: "/path/to/the/orthologs.tsv"
 # The method for joining pairs, either union or inter
 method: "union"
 
+# Will we exclude pairs with both values lesser than or equal to the threshold?
+exclude: false
+
 # Will the matrices be scrambled before use?
 scramble: false
 
