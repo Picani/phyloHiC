@@ -23,6 +23,13 @@ The pipeline
    * :doc:`bootstrap` if we want to look at all pairs,
    * :doc:`dist_pairs` if we want to look at each pair independently.
 
+   
+Tools
+-----
+
+* :doc:`statshic` computes basic statistics over a dataset and output the
+  results directly or write it as JSON.
+
 
 The File Formats
 ----------------
