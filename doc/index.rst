@@ -30,6 +30,9 @@ Tools
 * :doc:`statshic` computes basic statistics over a dataset and output the
   results directly or write it as JSON.
 
+* :doc:`norm_center` normalizes a buch of dataset in order to make them
+  comparable with each other.
+
 
 The File Formats
 ----------------
