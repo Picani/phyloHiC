@@ -48,7 +48,7 @@ class HiC:
 
     |
     :created: May 2018
-    :last modified: June 2018
+    :last modified: August 2018
 
     .. codeauthor::
        Sylvain PULICANI <pulicani@lirmm.fr>
@@ -125,6 +125,24 @@ class HiC:
                 self._scrambleIntraFY()
             else:
                 self._scrambleInterFY()
+
+
+    def load_all_maps(self):
+        """
+        Load all the matrices. The result is an array with all the values.
+
+        .. warning:: This function can need a lot of memory.
+
+        .. warning:: This function's result may change in the future.
+        """
+        data = []
+        for k in self._mapfiles.keys():
+            c1, c2 = k.split('|')
+            self.load_map(c1, c2)
+            data.extend(self.current['data'].flatten())
+        self.current['data'] = np.array(data)
+        self.current['dims'] = self.current['data'].shape
+        self.current['chroms'] = ('all', 'all')
 
 
     def get_contact(self, g1, g2):
