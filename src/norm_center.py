@@ -86,7 +86,7 @@ def normalize(hicdata, outdir):
             writer = csv.writer(f, delimiter='\t')
             writer.writerows(rows)
             f.write('\n')
-            print(f'{dd}: written {filename}.')
+            logging.debug(f'{dd}: written {filename}.')
 
     copyfile(f'{hicdata.datadir}/metadata.json', f'{outdir}/metadata.json')
 
@@ -180,7 +180,7 @@ def main():
     with concurrent.futures.ProcessPoolExecutor(args.threads) as e:
         futures = []
         for d, h in datasets.items():
-            futures.append(e.submit(normalize(h, norm_datasets[d])))
+            futures.append(e.submit(normalize, h, norm_datasets[d]))
 
         for future in concurrent.futures.as_completed(futures):
             try:
@@ -197,7 +197,7 @@ def main():
     with concurrent.futures.ProcessPoolExecutor(args.threads) as e:
         for d in norm_datasets.values():
             h = HiC(d)
-            futures.append(e.submit(add_hic(h, minimum)))
+            futures.append(e.submit(add_hic, h, minimum))
 
     concurrent.futures.wait(futures)
     logging.info("C'est fini !")
