@@ -60,6 +60,8 @@ def cli_parser():
                         help='Scramble in-memory the Hi-C matrices before use')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='be verbose')
+    parser.add_argument('--debug', action='store_true',
+                        help='print debug information')
     return parser
 
 
@@ -67,9 +69,10 @@ def main():
     parser = cli_parser()
     args = parser.parse_args()
 
-    if args.verbose:
+    if args.verbose and not args.debug:
         level = logging.INFO
-        # level = logging.DEBUG
+    elif args.debug:
+        level = logging.DEBUG
     else:
         level = logging.WARN
     logging.basicConfig(format='%(asctime)s: %(message)s', level=level)
@@ -108,6 +111,7 @@ def main():
                 try:
                     exp.load_map(c1, c2, args.scramble)
                     logging.debug(f'Loaded {c1} x {c2}')
+                    logging.debug(f'  len(buf) = {len(buf)}')
                 except hic.NoSuchHeatmap as e:
                     logging.warn(e)
                     continue
