@@ -98,7 +98,7 @@ class HiC:
             raise NoSuchHeatmap(f'{rowChrom} x {colChrom}')
 
         with gzip.open(f'{self.datadir}/{self._mapfiles[k]}', 'rt') as f:
-            data = list(csv.reader(f, delimiter='\t'))
+            data = [row for row in csv.reader(f, delimiter='\t') if row]
 
         # max_row_pos = max(set(int(d[0]) for d in data))
         # max_col_pos = max(set(int(d[1]) for d in data))
