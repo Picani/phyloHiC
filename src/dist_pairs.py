@@ -137,6 +137,7 @@ def main():
     values = [v for v in values.values() if len(v) == len(species)]
 
     if args.progress:
+        pbar.close()
         print('Computing the distances...')
         pbar = tqdm(total=len(values))
     elif args.verbose:
