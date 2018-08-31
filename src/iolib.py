@@ -109,8 +109,8 @@ def phylip(species, distances):
             if sp1 == sp2:
                 temp_line.append('0')
             elif sp1 not in distances or sp2 not in distances[sp1]:
-                temp_line.append(f'{distances[sp2][sp1]:.8}')
+                temp_line.append(f'{distances[sp2][sp1]:.8f}')
             else:
-                temp_line.append(f'distances[sp1][sp2]:.8')
+                temp_line.append(f'{distances[sp1][sp2]:.8f}')
         lines.append('\t'.join(temp_line))
     return '\n'.join(lines)
