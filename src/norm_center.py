@@ -85,23 +85,27 @@ def normalize(hicdata, outdir):
         with gzip.open(f'{outdir}/{filename}', 'wt') as f:
             writer = csv.writer(f, delimiter='\t')
             writer.writerows(rows)
-            f.write('\n')
+
             logging.debug(f'{dd}: written {filename}.')
 
     copyfile(f'{hicdata.datadir}/metadata.json', f'{outdir}/metadata.json')
 
     logging.info(f'Done normalizing {dd}.')
+    logging.info(f'  Minimum is {minimum}')
 
     return minimum
 
 
-def add_hic(hicdata, value, verbose=False):
+def add_hic(hicdata, value):
     """
     Substrat *value* from each box of each matrix of the *hicdata*.
 
     .. Warning:: This is done **in-place**.
     """
     dd = basename(abspath(hicdata.datadir))
+    logging.debug(f'{dd}: beginning loop')
+    logging.debug(f'      {hicdata.datadir}')
+    logging.debug(f'      {hicdata.chromosomes}')
     for c1, c2 in combinations_with_replacement(hicdata.chromosomes, r=2):
         try:
             hicdata.load_map(c1, c2)
@@ -113,21 +117,22 @@ def add_hic(hicdata, value, verbose=False):
 
         rows = []
         for i, j in product(*map(range, hicdata.current['dims'])):
-            if hicdata.data['current'][i, j] == 0.0:
+            if hicdata.current['data'][i, j] == 0.0:
                 continue
             rows.append([i*hicdata.binsize, j*hicdata.binsize,
                          hicdata.current['data'][i, j]])
 
+        logging.debug(f'len(rows) = {len(rows)}')
         c1, c2 = hicdata.current['chroms']
         filename = hicdata._mapfiles[f'{c1}|{c2}']
         logging.debug(f'{dd}: rows for {filename} prepared.')
-        with gzip.open(f'{hicdata.datadir}/{filename}', 'w') as f:
+        with gzip.open(f'{hicdata.datadir}/{filename}', 'wt') as f:
             writer = csv.writer(f, delimiter='\t')
             writer.writerows(rows)
-            f.write('\n')
+
             logging.debug(f'{dd}: written {filename}.')
 
-        logging.info(f'Done adding {value} on dataset {dd}')
+    logging.info(f'Done adding {value} on dataset {dd}')
 
 
 def cli_parser():
@@ -193,13 +198,15 @@ def main():
 
     logging.info('Subtracting the minimum value...')
 
-    futures = []
     with concurrent.futures.ProcessPoolExecutor(args.threads) as e:
+        futures = []
         for d in norm_datasets.values():
             h = HiC(d)
-            futures.append(e.submit(add_hic, h, minimum))
+            futures.append(e.submit(add_hic, h, abs(minimum)))
 
-    concurrent.futures.wait(futures)
+        logging.debug('Wait')
+        concurrent.futures.wait(futures)
+
     logging.info("C'est fini !")
 
 
