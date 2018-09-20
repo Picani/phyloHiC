@@ -21,7 +21,7 @@ In this file, the ``genes`` argument refers to a list of such dicts.
 
 |
 :created: May 2018
-:last modified: July 2018
+:last modified: September 2018
 
 .. codeauthor::
    Sylvain PULICANI <pulicani@lirmm.fr>
@@ -94,7 +94,7 @@ def compute_adjacent(genes):
         d = {'left': '', 'right': ''}
         if genes[i]['chrom'] == g['chrom']:
             d['left'] = genes[i]['name']
-        if genes[i+1]['chrom'] == g['chrom']:
+        if genes[i+2]['chrom'] == g['chrom']:
             d['right'] = genes[i+2]['name']
 
         res[g['name']] = d
