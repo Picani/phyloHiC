@@ -25,7 +25,7 @@ from toolz.curried import merge
 
 from iolib import read_orthos, read_values, phylip
 
-BUGGED = False
+# BUGGED = False
 
 
 def distances_scaledl2(species, values):
@@ -53,11 +53,12 @@ def distances_scaledl2(species, values):
                 sys.exit(7)
             ma = max(v[sp1], v[sp2])
             mi = min(v[sp1], v[sp2])
-            if ma == 0.0 and BUGGED:
-                # To mimic the results of phyloHiC compare from commit
-                # f0415951e58318460c590aa9a818113f32ad37f0
-                distances[sp1][sp2] += 1.0
-            elif ma == 0.0:
+            # if ma == 0.0 and BUGGED:
+            #     # To mimic the results of phyloHiC compare from commit
+            #     # f0415951e58318460c590aa9a818113f32ad37f0
+            #     distances[sp1][sp2] += 1.0
+            # elif ma == 0.0:
+            if ma == 0.0:
                 distances[sp1][sp2] += 0.0  # useless but explicit
             else:
                 distances[sp1][sp2] += (1.0 - (mi/ma))**2
@@ -114,8 +115,8 @@ def main():
     parser = cli_parser()
     args = parser.parse_args()
 
-    global BUGGED
-    BUGGED = args.bugged
+    # global BUGGED
+    # BUGGED = args.bugged
 
     if args.progress:
         try:
