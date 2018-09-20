@@ -86,7 +86,7 @@ def compute_adjacent(genes):
     """
     res = {}
     # We add the first gene
-    res[genes[0]['name']] = {'left': ''}
+    res[genes[0]['name']] = {'left': '', 'right': ''}
     if genes[0]['chrom'] == genes[1]['chrom']:
         res[genes[0]['name']]['right'] = genes[1]['name']
 
@@ -100,7 +100,7 @@ def compute_adjacent(genes):
         res[g['name']] = d
 
     # We add the last gene
-    res[genes[-1]['name']] = {'right': ''}
+    res[genes[-1]['name']] = {'left': '', 'right': ''}
     if genes[-1]['chrom'] == genes[-2]['chrom']:
         res[genes[-1]['name']]['left'] = genes[-2]['name']
 
