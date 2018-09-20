@@ -88,6 +88,8 @@ def cli_parser():
     parser.add_argument('-r', '--reference', action='store_true',
                         help=('compute the actual distances matrix and write'
                               ' it in the outdir as ref.phylip'))
+    parser.add_argument('-i', '--informative', action="store_true",
+                        help='keep only informative pairs')
     parser.add_argument('-u', '--union', action='store_true',
                         help=('by default, the computation is done with '
                               'the intersection of the orthologs, i.e. if '
@@ -161,6 +163,9 @@ def main():
 
     if not args.union:
         values = [v for v in values if len(v) == len(species)]
+
+    if args.informative:
+        values = [v for v in values if len(set(v.values)) != 1]
 
     if args.reference:
         distances = distances_scaledl2(species, values)
