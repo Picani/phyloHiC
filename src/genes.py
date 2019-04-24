@@ -19,7 +19,7 @@ A ``gene`` is a ``dict`` with the following keys:
 
 In this file, the ``genes`` argument refers to a list of such dicts.
 
-|
+
 :created: May 2018
 :last modified: September 2018
 
