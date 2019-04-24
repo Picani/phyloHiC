@@ -12,7 +12,7 @@ PHYLIP matrices.
 
 
 :created: June 2018
-:last modified: June 2018
+:last modified: August 2018
 
 .. codeauthor::
    Sylvain PULICANI <pulicani@lirmm.fr>
