@@ -10,7 +10,7 @@ This module contains functions that parses tabular files used to
 store orthologs or pair values, and to format output such as making
 PHYLIP matrices.
 
-|
+
 :created: June 2018
 :last modified: June 2018
 
