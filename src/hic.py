@@ -1,5 +1,14 @@
 # hic.py
 
+"""
+hic
+===
+
+This module contains classes used to work with Hi-C data.
+
+.. codeauthor:: Sylvain PULICANI <pulicani@lirmm.fr>
+"""
+
 import random
 import gzip
 import json
@@ -24,29 +33,28 @@ class HiC:
 
     There is also a JSON file called `metadata.json` of the following form:
     ::
-        {
-          "Binsize": 5000,
-          "Assembly": "droYak2",
-          "Species": "Drosophila yakuba",
-          "Comment": "nm_none - No NaN",
-          "Date": "",
-          "Dataset": "Dyak_c",
-          "Dims": {
-            "2R|2R": [1234, 1234],
-            "4|X": [345, 2345],
-            ...
-          }
-          "MapFiles": {
-            "2R|2R": "2R_2R.tsv.gz",
-            "4|X": "4_X.tsv.gz",
-            ...
-          }
-        }
+     {
+       "Binsize": 5000,
+       "Assembly": "droYak2",
+       "Species": "Drosophila yakuba",
+       "Comment": "nm_none - No NaN",
+       "Date": "",
+       "Dataset": "Dyak_c",
+       "Dims": {
+         "2R|2R": [1234, 1234],
+         "4|X": [345, 2345],
+         ...
+       }
+       "MapFiles": {
+         "2R|2R": "2R_2R.tsv.gz",
+         "4|X": "4_X.tsv.gz",
+         ...
+       }
+     }
 
     Please note that the format of the file names is free, but the one of
     the keys is not. This is of the form `chromosome|chromosome`.
 
-    |
     :created: May 2018
     :last modified: August 2018
 
@@ -64,9 +72,13 @@ class HiC:
             raise Exception('the Hi-C directory does not contain a "metadata.json" file')
 
         self.binsize = metadata['Binsize']
+        """The binsize of the dataset."""
+
         self._dims = metadata['Dims']
         self._mapfiles = metadata['MapFiles']
+
         self.inter = False
+        """True iff the dataset contains inter-chromosomal contacts."""
 
         temp = set()
         for chroms in self._mapfiles:
@@ -76,8 +88,10 @@ class HiC:
             temp.add(c1)
             temp.add(c2)
         self.chromosomes = list(temp)
+        """The list of chromosomes for which data are available."""
 
         self.current = {'data': None, 'dims': (0, 0), 'chroms': ('', '')}
+        """The currently loaded Hi-C map."""
 
 
     def load_map(self, rowChrom, colChrom, scramble=False):
