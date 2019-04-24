@@ -6,43 +6,23 @@
 Welcome to PhyloHiC's documentation!
 ====================================
 
+PhyloHiC is a set of scripts that allows the computation of distances between
+genomes based on *shared genomic regions* and *genomic contact data*.
+Currently, we use orthologous genes as shared regions and Hi-C data as contacts
+information. Thus, you must already have these data.
+
+This documentation is divided in three sections:
+
 .. toctree::
+   :numbered:
    :maxdepth: 2
-   :caption: Contents:
 
+   intro
+   analysis
+   scripts_and_api
+   file_formats
 
-The pipeline
-------------
-
-1. :doc:`make_pairs` which computes the contacts of pairs of genes.
-
-2. :doc:`join_pairs` which extracts the intersection of pairs from two tables of contacts. The intersection is computed using the orthologs.
-
-3. From there, we have two possibilities:
-
-   * :doc:`bootstrap` if we want to look at all pairs,
-   * :doc:`dist_pairs` if we want to look at each pair independently.
-
-   
-Tools
------
-
-* :doc:`statshic` computes basic statistics over a dataset and output the
-  results directly or write it as JSON.
-
-* :doc:`norm_center` normalizes a buch of dataset in order to make them
-  comparable with each other.
-
-
-The File Formats
-----------------
-
-Coming soon!
-
-
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+..
+   1. Introduction to the ideas and the general process
+   2. Actually running an analysis
+   3. Scripts and API documentation
