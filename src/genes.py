@@ -60,6 +60,7 @@ def read_bed(name):
 def make_bed(genes):
     """
     Convert the *genes* to BED. Return the resulting string.
+
     .. Note:: The `score` column is set to 0.
     """
     rows = [f'{g["chrom"]}\t{g["start"]}\t{g["end"]}\t{g["name"]}\t0\t{g["strand"]}'
