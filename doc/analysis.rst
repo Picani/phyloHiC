@@ -49,8 +49,15 @@ basic example with an SGE scheduler:
 Results
 -------
 
-À venir.
+The pipeline outputs a distance matrix in `PHYLIP format`_ called
+:file:`all_replicates.phylip`. It also creates a number of intermediate files
+that are kept in case other analysis should be performed. This files are :
+
+* the `pairs files` which are described :doc:`here <formats/pairs>`,
+* the `values files` which are described :doc:`here <formats/values>`,
+* the `stats file` which is described :doc:`here <formats/stats>`.
 
 
 .. _BED format: https://genome.ucsc.edu/FAQ/FAQformat.html#format1
 .. _YAML: https://yaml.org
+.. _PHYLIP format: http://evolution.genetics.washington.edu/phylip/doc/distance.html
