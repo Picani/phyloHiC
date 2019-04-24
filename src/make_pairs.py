@@ -124,6 +124,8 @@ def main():
         a1 = adjacencies[g1['name']]
         adj = a1['left'] == g2['name'] or a1['left'] == g2['name']
 
+        # TODO: faire la même avec a2, normalement on devrait avoir le même résultat
+
         buf.append([g1['name'], g2['name'], str(value), str(adj)])
         if len(buf) == 100000:
             writer.writerows(buf)
