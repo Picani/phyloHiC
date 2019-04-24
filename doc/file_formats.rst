@@ -7,3 +7,6 @@ File Formats
    formats/config
    formats/hic
    formats/orthos
+   formats/pairs
+   formats/stats
+   formats/values
