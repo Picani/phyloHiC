@@ -46,6 +46,7 @@ The scripts make use of the following modules:
 .. toctree::
    :maxdepth: 1
 
+   api/distlib
    api/genes
    api/hic
    api/iolib
