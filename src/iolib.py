@@ -12,7 +12,7 @@ PHYLIP matrices.
 
 
 :created: June 2018
-:last modified: August 2018
+:last modified: August 2019
 
 .. codeauthor::
    Sylvain PULICANI <pulicani@lirmm.fr>
@@ -29,9 +29,7 @@ def read_orthos(name):
     names (from all species) and a mapping of the ortholog names to their
     orthology group.
 
-    The TSV file is expected to have an header row with the species names,
-    one orthology group per row, and all species having one and only one
-    ortholog per group.
+    The orthologs file is described :doc:`in the documentation </formats/orthos>`.
     """
     lines = []
     with open(name, 'r') as f:
@@ -51,17 +49,10 @@ def read_values(orthos, groups, sp_left, sp_right, name):
     Read the value file at *name* and return a dict of dict of group ids
     to species name to Hi-C value.
 
-    The value file is the one output by phyloHiC compare, i.e. a
-    Gzipped TSV file, with no header row and 6 columns:
+    The values file is described :doc:`in the documentation </formats/values>`.
 
-    * Species left, gene for ortholog group 1
-    * Species left, gene for ortholog group 2
-    * Species right, gene for ortholog group 1
-    * Species right, gene for ortholog group 2
-    * Hi-C value for the pair gene 1/gene 2 in Specie left
-    * Hi-C value for the pair gene 1/gene 2 in Specie right
-
-    Extract only the values where all four genes are present in *orthos*.
+    .. note::
+      Extract only the values where all four genes are present in *orthos*.
     """
     lines = []
     with gzip.open(name, 'rt') as f:
