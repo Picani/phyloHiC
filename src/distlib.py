@@ -56,6 +56,7 @@ def scaled_L2norm(species, values):
 def filter_values(constraint, species, values):
     """
     Filter the *values* based upon the *species* and the wanted *constraint*:
+
     * `intersection`: only the values present in all species are kept.
     * `informative`: keep the values present in at least two species.
     * `union`: keep all values.
