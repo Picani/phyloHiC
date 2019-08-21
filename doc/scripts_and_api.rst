@@ -13,7 +13,7 @@ About the pipeline:
 
 3. From there, we have two possibilities:
 
-   * :doc:`scripts/bootstrap` if we want to look at all pairs,
+   * :doc:`scripts/dist_all_pairs` if we want to look at all pairs,
    * :doc:`scripts/dist_pairs` if we want to look at each pair independently.
 
    
@@ -33,6 +33,7 @@ Scripts usage:
    scripts/make_pairs
    scripts/join_pairs
    scripts/bootstrap
+   scripts/dist_all_pairs
    scripts/dist_pairs
    scripts/statshic
    scripts/norm_center
