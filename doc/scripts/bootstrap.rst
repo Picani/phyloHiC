@@ -1,5 +1,7 @@
 .. automodule:: bootstrap
 
+  Usage
+  -----
 
   .. argparse::
      :module: bootstrap

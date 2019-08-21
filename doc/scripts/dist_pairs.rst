@@ -1,5 +1,7 @@
 .. automodule:: dist_pairs
 
+  Usage
+  -----
 
   .. argparse::
      :module: dist_pairs

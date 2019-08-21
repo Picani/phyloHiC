@@ -1,5 +1,7 @@
 .. automodule:: make_pairs
 
+  Usage
+  -----
 
   .. argparse::
      :module: make_pairs
