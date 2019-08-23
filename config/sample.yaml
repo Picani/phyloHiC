@@ -24,7 +24,8 @@ nb_replicates: 100
 # The path to the TSV with all the orthologs
 orthologs: "/path/to/the/orthologs.tsv"
 
-# The method for joining pairs, either union or inter
+# The method for joining pairs, exactly one of "union", "intersection" or
+# "informative". See the documentation for more information.
 method: "union"
 
 # Will we exclude pairs with both values lesser than or equal to the threshold?

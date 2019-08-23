@@ -35,19 +35,14 @@ rule all:
                rep=n)
 
 
-rule make_bootstrap:
+rule dist_all_pairs:
     input:
         [Template('{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/${d1}_${d2}_values.tsv.gz').substitute(d1=d1, d2=d2)
          for d1, d2 in combinations(config['datasets'], 2)]
     output:
         '{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}_{rep}/all_replicates.phylip'
-    params:
-        union='-u' if config['method'] == 'union' else '',
-        outdir=lambda wildcards, output: dirname(output[0])
     shell:
-        # The rmdir is because snakmake creates the directory before
-        # to call bootstrap.py, which expects the dir to NOT exist.
-        'rmdir {params.outdir} && {bindir}/bootstrap.py -ro {params.union} {orthologs} {params.outdir} {n} {input}'
+        '{bindir}/dist_all_pairs.py -m {method} {orthologs} {output} {input}'
 
 
 rule get_stats:
