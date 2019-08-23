@@ -6,14 +6,15 @@ dist_pairs.py
 
 This script computes one distance matrix by pair of orthologs.
 Due to the fact that we want one matrix per pair of genes, this
-script runs in inter mode (*i.e.* only the pairs present in all
-species are used).
+script runs in intersection mode (*i.e.* only the pairs present
+in all species are used).
 
-It is intended to be run *instead of* :doc:`bootstrap`. 
+It is intended to be run *instead of* :doc:`/scripts/dist_all_pairs`
+and :doc:`/scripts/bootstrap`.
 
-|
+
 :created: June 2018
-:last modified: July 2018
+:last modified: August 2019
 
 .. codeauthor::
    Sylvain PULICANI <pulicani@lirmm.fr>
@@ -25,48 +26,11 @@ import sys
 import os
 import re
 
-from math import isnan, sqrt
-from itertools import combinations
-from collections import defaultdict
-
 from toolz import merge_with
 from toolz.curried import merge
 
+from distlib import scaled_L2norm, filter_values
 from iolib import read_orthos, read_values, phylip
-
-def distances_scaledl2(species, values):
-    """
-    Compute the distances using the L2-norm scaled by the size with the
-    *values* for all pairs of *species*.
-    """
-    distances = defaultdict(dict)
-    sizes = defaultdict(dict)
-    species_pairs = list(combinations(species, 2))
-    for sp1, sp2 in species_pairs:
-        distances[sp1][sp2] = 0.0
-        sizes[sp1][sp2] = 0.0
-
-    for v in values:
-        for sp1, sp2 in species_pairs:
-            if sp1 not in v or sp2 not in v:
-                continue
-            if isnan(v[sp1]) or isnan(v[sp2]):
-                print(v)
-                sys.exit(7)
-            ma = max(v[sp1], v[sp2])
-            mi = min(v[sp1], v[sp2])
-            if ma == 0.0:
-                distances[sp1][sp2] += 0.0  # useless but explicit
-            else:
-                distances[sp1][sp2] += (1.0 - (mi/ma))**2
-            sizes[sp1][sp2] += 1.0
-
-    for sp1, sp2 in species_pairs:
-        if sizes[sp1][sp2] == 0.0:
-            distances[sp1][sp2] = 1.0
-        else:
-            distances[sp1][sp2] = sqrt(distances[sp1][sp2]) / sqrt(sizes[sp1][sp2])
-    return distances
 
 
 def cli_parser():
@@ -134,7 +98,7 @@ def main():
             pbar.update(1)
 
     # At this point, we don't need the group number anymore
-    values = [v for v in values.values() if len(v) == len(species)]
+    filter_values('intersection', species, values.values())
 
     if args.progress:
         pbar.close()
@@ -147,7 +111,7 @@ def main():
         f = open(args.outdir, 'w')
 
     for i, v in enumerate(values):
-        distances = distances_scaledl2(species, [v])
+        distances = scaled_L2norm(species, [v])
         matrix = phylip(species, distances)
 
         if args.one_file:
@@ -167,6 +131,7 @@ def main():
     if args.one_file:
         f.close()
     if args.progress:
+        pbar.close()
         print()  # To have a pretty line in the console
 
 
