@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 
 """
-dist_pairs.py
-=============
+dist_pairs_indep.py
+===================
 
 This script computes one distance matrix by pair of orthologs.
 Due to the fact that we want one matrix per pair of genes, this
 script runs in intersection mode (*i.e.* only the pairs present
 in all species are used).
 
-It is intended to be run *instead of* :doc:`/scripts/dist_all_pairs`
-and :doc:`/scripts/bootstrap`.
+.. note::
+   It is intended to be run *instead of* :doc:`/scripts/dist_all_pairs`
+   and :doc:`/scripts/bootstrap`.
 
 
 :created: June 2018

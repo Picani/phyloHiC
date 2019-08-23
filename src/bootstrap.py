@@ -19,7 +19,7 @@ the distance:
 
 .. note::
    It is intended to be used *instead of* :doc:`/scripts/dist_all_pairs`
-   and :doc:`/scripts/dist_pairs`.
+   and :doc:`/scripts/dist_pairs_indep`.
 
 
 :created: May 2018

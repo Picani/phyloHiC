@@ -15,8 +15,8 @@ the distance:
 * `union`: keep all values.
 
 .. note::
-   It is intended to be used *instead of* :doc:`/scripts/dist_pairs` and
-   :doc:`/scripts/bootstrap`.
+   It is intended to be used *instead of* :doc:`/scripts/dist_pairs_indep`
+   and :doc:`/scripts/bootstrap`.
 
 
 :created: August 2019
