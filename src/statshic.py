@@ -16,7 +16,7 @@ The statistics are the following:
 Also report the dimensions of the matrices and their size (number of
 elements). For the whole datasets, only the size is given.
 
-|
+
 :created: August 2018
 :last modified: August 2018
 

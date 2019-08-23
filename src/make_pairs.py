@@ -21,7 +21,6 @@ the extension .gz). The file has no header and the following columns:
 * Adjacency status (either True or False, case-insensitive)
 
 
-|
 :created: May 2018
 :last modified: July 2018
 

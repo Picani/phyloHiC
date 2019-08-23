@@ -19,7 +19,6 @@ The result is a data set with 5 columns:
 This table is written as TSV with no header row, in a Gzipped file.
 
 
-|
 :created: May 2018
 :last modified: July 2018
 

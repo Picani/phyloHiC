@@ -19,7 +19,7 @@ The first step consists of the following process:
 The second step is simple: we just add to each box in each matrix from
 each dataset the minimum value over all dataset.
 
-|
+
 :created: August 2018
 :last modified: August 2018
 
