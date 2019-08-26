@@ -27,6 +27,8 @@ To completely compare two genomes, we compute the ratios for all possible pairs
 of orthologs.
 
 
+.. _general_process:
+
 General Process
 ---------------
 

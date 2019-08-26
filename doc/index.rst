@@ -18,6 +18,7 @@ This documentation is divided in three sections:
    :maxdepth: 2
 
    intro
+   definitions
    analysis
    scripts_and_api
    file_formats
