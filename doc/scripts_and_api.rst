@@ -26,6 +26,10 @@ Tools (not exhaustive):
 * :doc:`scripts/norm_center` normalizes a buch of dataset in order to make them
   comparable with each other.
 
+* :doc:`scripts/informative_traits` reports information about the traits
+  that are informative, *i.e.* the traits that don't have the same value in
+  all species.
+
 Scripts usage:
 
 .. toctree::
@@ -38,6 +42,7 @@ Scripts usage:
    scripts/dist_pairs_indep
    scripts/statshic
    scripts/norm_center
+   scripts/informative_traits
 
 API
 ---
