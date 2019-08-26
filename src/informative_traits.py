@@ -55,7 +55,7 @@ def cli_parser():
     parser.add_argument('-o', '--output',
                         help='write the output there; can be JSON or TSV')
     parser.add_argument('-m', '--mode', default='intersection',
-                        choices=['intersection', 'informative', 'union'],
+                        choices=['intersection', 'atLeastTwo', 'union'],
                         help=('the mode, that is, the kind of values we want'
                               ' to keep while computing the distance'))
     parser.add_argument('-p', '--progress', action='store_true',
