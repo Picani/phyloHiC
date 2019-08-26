@@ -11,7 +11,7 @@ The mode argument define what kind of value we want to keep while computing
 the distance:
 
 * `intersection`: only the values present in all species are kept.
-* `informative`: keep the values present in at least two species.
+* `atLeastTwo`: keep the values present in at least two species.
 * `union`: keep all values.
 
 .. note::
@@ -46,7 +46,7 @@ def cli_parser():
     parser.add_argument('values', nargs='+',
                         help='the values files, in (Gzipped) TSV')
     parser.add_argument('-m', '--mode', default='intersection',
-                        choices=['intersection', 'informative', 'union'],
+                        choices=['intersection', 'atLeastTwo', 'union'],
                         help=('the mode, that is, the kind of values we want'
                               ' to keep while computing the distance'))
     parser.add_argument('-p', '--progress', action='store_true',

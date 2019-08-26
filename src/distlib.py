@@ -58,24 +58,24 @@ def filter_values(constraint, species, values):
     Filter the *values* based upon the *species* and the wanted *constraint*:
 
     * `intersection`: only the values present in all species are kept.
-    * `informative`: keep the values present in at least two species.
+    * `atLeastTwo`: keep the values present in at least two species.
     * `union`: keep all values.
 
     .. note::
        This function is a generator.
 
     .. warning::
-       If *constraint* is something else than `intersection`, `informative`
+       If *constraint* is something else than `intersection`, `atLeastTwo`
        or `union`, then a ValueError exception is raised.
     """
-    if constraint not in ['intersection', 'informative', 'union']:
-        raise ValueError("constraint must be one of 'intersection', 'informative' or 'union'.")
+    if constraint not in ['intersection', 'atLeastTwo', 'union']:
+        raise ValueError("constraint must be one of 'intersection', 'atLeastTwo' or 'union'.")
 
     for value in values:
         if constraint == 'intersection':
             if len(value) == len(species):
                 yield value
-        elif constraint == 'informative':
+        elif constraint == 'atLeastTwo':
             if len(value) != 1:
                 yield value
         else:  # in 'union' we keep all values
