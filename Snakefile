@@ -4,7 +4,7 @@
 
 # Author: Sylvain PULICANI <pulicani@lirmm.fr>
 # Created on: June 19, 2018
-# Last modified on: June 21, 2018
+# Last modified on: September 2, 2019
 
 from itertools import combinations
 from os.path import dirname
@@ -20,19 +20,17 @@ orthologs = config['orthologs']
 name = config['experiment']
 method = config['method']
 resolutions = config['resolutions']
-n = config['nb_replicates']
 
 
 rule all:
     input:
-        expand('{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}_{rep}/all_replicates.phylip',
+        expand('{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}/distances.phylip',
                rootdir=config['rootdir'],
                res=resolutions,
                name=name,
                th=THRESHOLDS,
                adj=ADJACENCIES,
-               method=method,
-               rep=n)
+               method=method)
 
 
 rule dist_all_pairs:
@@ -40,7 +38,7 @@ rule dist_all_pairs:
         [Template('{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/${d1}_${d2}_values.tsv.gz').substitute(d1=d1, d2=d2)
          for d1, d2 in combinations(config['datasets'], 2)]
     output:
-        '{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}_{rep}/all_replicates.phylip'
+        '{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}/all_replicates.phylip'
     shell:
         '{bindir}/dist_all_pairs.py -m {method} {orthologs} {output} {input}'
 
@@ -87,8 +85,6 @@ rule join_pairs:
         shell("{bindir}/join_pairs.py {t} {x} -a {wildcards.adj} {orthologs} {input.d1} {input.d2} {output}")
 
 
-
-
 def make_pairs_input(wildcards):
     return (config['datasets'][wildcards.dataset]['genes'],
             config['datasets'][wildcards.dataset]['hic'][wildcards.res])
@@ -98,7 +94,5 @@ rule make_pairs:
         make_pairs_input
     output:
         '{rootdir}/{res}/{name}/pairs/{dataset}.tsv.gz'
-    params:
-        scramble='-s' if config['scramble'] else ''
     shell:
-        "{bindir}/make_pairs.py -N {params.scramble} {input} {output}"
+        "{bindir}/make_pairs.py -N {input} {output}"

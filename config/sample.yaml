@@ -18,21 +18,15 @@ rootdir: "/path/to/rootdir"
 # The experiment name
 experiment: "myexpe"
 
-# The number of replicates for the bootstrap step
-nb_replicates: 100
-
 # The path to the TSV with all the orthologs
 orthologs: "/path/to/the/orthologs.tsv"
 
 # The method for joining pairs, exactly one of "union", "intersection" or
-# "informative". See the documentation for more information.
+# "atLeastTwo. See the documentation for more information.
 method: "union"
 
 # Will we exclude pairs with both values lesser than or equal to the threshold?
 exclude: false
-
-# Will the matrices be scrambled before use?
-scramble: false
 
 # The Hi-C resolutions
 resolutions: ["10kb", "20kb"]
@@ -40,9 +34,9 @@ resolutions: ["10kb", "20kb"]
 # Let's talk about data...
 datasets:
 
-  # The first dataset, the key name will be used as dataset name in the results
+  # The first dataset, "Species1" will be used as dataset name in the results
   Species1:
-    # It's genes, in BED format
+    # Its genes, in BED format
     genes: "/path/to/sp1/genes.bed"
     # The different directories for the Hi-C, one directory per resolutions
     hic:
