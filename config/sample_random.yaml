@@ -1,0 +1,62 @@
+# sample.yaml
+
+# Sample config file.
+
+#-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+# WARNING: all path shall end with a /
+#-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+# Where are the scripts?
+bin: "/path/to/python/scripts"
+
+# Activate a conda environment. If not needed, leave empty
+condacmd: "source /path/to/conda/bin/activate myenv"
+
+# The path to the root directory for the results (holds multiple experiments)
+rootdir: "/path/to/rootdir"
+
+# The experiment name
+experiment: "myexpe"
+
+# The number of replicates for the scrambling step
+nb_replicates: 100
+
+# The path to the TSV with all the orthologs
+orthologs: "/path/to/the/orthologs.tsv"
+
+# The method for joining pairs, exactly one of "union", "intersection" or
+# "atLeastTwo. See the documentation for more information.
+method: "union"
+
+# Will we exclude pairs with both values lesser than or equal to the threshold?
+exclude: false
+
+# The Hi-C resolutions
+resolutions: ["10kb", "20kb"]
+
+# Let's talk about data...
+datasets:
+
+  # The first dataset, the Species1 will be used as dataset name in the results
+  Species1:
+    # It's genes, in BED format
+    genes: "/path/to/sp1/genes.bed"
+    # The different directories for the Hi-C, one directory per resolutions
+    hic:
+      # The keys are the resolutions, and the values the paths
+      10kb: "/path/to/hic/at/10kb/"
+      20kb: "/path/to/hic/at/20kb/"
+
+  # Idem for the other datasets
+
+  Species2:
+    genes: "/path/to/sp2/genes.bed"
+    hic:
+      10kb: "/path/to/sp2/hic/at/10kb/"
+      20kb: "/path/to/sp2/hic/at/20kb/"
+
+  Species3:
+    genes: "/path/to/sp3/genes.bed"
+    hic:
+      10kb: "/path/to/sp3/hic/at/10kb/"
+      20kb: "/path/to/sp3/hic/at/20kb/"
