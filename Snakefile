@@ -38,7 +38,7 @@ rule dist_all_pairs:
         [Template('{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/${d1}_${d2}_values.tsv.gz').substitute(d1=d1, d2=d2)
          for d1, d2 in combinations(config['datasets'], 2)]
     output:
-        '{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}/all_replicates.phylip'
+        '{rootdir}/{res}/{name}/threshold_{th}_adj_{adj}/trees_{method}/distances.phylip'
     shell:
         '{bindir}/dist_all_pairs.py -m {method} {orthologs} {output} {input}'
 
