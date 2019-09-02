@@ -1,6 +1,6 @@
 # Snakefile_random
 
-# Perform a phyloHiC analysis
+# Perform a randomized phyloHiC analysis
 
 # Author: Sylvain PULICANI <pulicani@lirmm.fr>
 # Created on: September 2, 2019
