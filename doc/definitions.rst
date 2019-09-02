@@ -79,3 +79,69 @@ These situations are:
   that situation ``intersection``.
 * Only the values that are present in at least two pairs of species (so at
   least 3 species) are kept; we soberly call that situation ``atLeastTwo``.
+
+
+Randomization
+-------------
+
+An important part of this work is to test whether or not a phylogenetic
+signal is present in the contact data. In order to achieve that goal, we
+need to apply the method to the actual data, then to a randomized set of
+data, and finally to compare them.
+
+Let's talk about what we call *a randomized set of data*.
+
+Scrambling matrices
+^^^^^^^^^^^^^^^^^^^
+
+The contact data are represented as matrices, each axis being the coordinates
+along a chromosome. Thus, a box in such a matrix corresponds to the contacts
+between the two chromosomes at the given coordinates.
+
+Now, let's take a particular box (that is a pair of genes) in a matrix.
+Scrambling that matrix multiple times will make the contacts in this box tend
+to the mean number of contacts of the whole matrix. 
+
+Consequently, by scrambling a matrix, we lose the structural information.
+Thus, comparing the results obtained using actual with the ones obtained from
+multiple scrambling allows us to look for a phylogenetic signal.
+
+The scrambling is done at step 2 of the :ref:`general_process`. Technically,
+we use the Fisher--Yates shuffle [Durstenfeld1964]_ to scramble the
+matrices.
+
+
+Bootstrap
+^^^^^^^^^
+
+At some point during the scientific process, we performed a step of
+bootstrap. The bootstrap has been introduced by Efron [Efron1979]_ and
+applied to phylogenies by Felsenstein [Felsenstein1985]_.
+
+We used it on the pairs of genes after joining (step 3 of
+:ref:`general_process`). The idea was to make multiple distances matrices by
+bootstraping, then to compute the actual distance matrix. After that, we
+inferred all phylogenetic trees, and compared them.
+
+However, after discussions it appeared we couldn't interpret our results. The
+code that produced those results is still in the repo, in the hope that the
+methodology could be fixed.
+
+
+
+.. [Durstenfeld1964] Durstenfeld R.,
+                     "Algorithm 235: Random permutation",
+                     Communications of the ACM, Volume 7 Issue 7, July 1964,
+                     Page 420,
+                     doi: 10.1145/364520.364540
+
+.. [Efron1979] Efron B.,
+               "Bootstrap Methods: Another Look at the Jackknife",
+               The Annals of Statistics, Volume 7, Number 1 (1979),
+               Pages 1-26,
+               doi: 10.1214/aos/1176344552
+
+.. [Felsenstein1985] Felsenstein J.,
+                     "Confidence Limits on Phylogenies: an Approach Using the Bootstrap",
+                     Evolution, 1985, 39, 783-791,
+                     doi: 10.1111/j.1558-5646.1985.tb00420.x
