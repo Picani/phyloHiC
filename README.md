@@ -30,15 +30,15 @@ you will need sphinx of course, with the [Read the Doc theme][6] and the
 [sphinx-argparse][7] extension.
 
 
-Licence
+License
 -------
 
 This code has been written during my work as a PhD student in a [CNRS][12]
 laboratory. Thus, it is licensed under the CeCILL V2.1, which very close and
 compatible with the GNU GPL.
 
-The English text is in the file `LICENCE` and the French text is in the file
-`LICENCE_fr`.
+The English text is in the file `LICENSE` and the French text is in the file
+`LICENSE_fr`.
 
 
 Citing
